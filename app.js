@@ -4,7 +4,7 @@ const FileStore = require('session-file-store')(session);
 const passport = require('passport');
 const MongoClient = require('mongodb').MongoClient;
 //const assert = require('assert');
-//const ObjectID = require('mongodb').ObjectID;
+const ObjectID = require('mongodb').ObjectID;
 const LocalStrategy = require('passport-local');
 
 const url = 'mongodb://localhost:27017/users';
@@ -17,9 +17,6 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-//app.use(express.static('public'));
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(
   session({
@@ -35,6 +32,9 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 passport.serializeUser(function(user, done) {
   console.log('Serialization: ', user)
   done(null, user._id);
@@ -42,7 +42,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
   console.log('Deserialization: ', id);
-  db.collection('users').findOne({_id: id}, function(err, user) {
+  db.collection('users').findOne({_id: ObjectID(id)}, function(err, user) {
     done(err, user);
   });
 });
