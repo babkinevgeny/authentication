@@ -18,7 +18,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //app.use(express.static('public'));
-
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(
   session({
@@ -62,10 +63,6 @@ passport.use(new LocalStrategy({ usernameField: 'email' },
     });
   }
 ));
-
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 
 //Get basic page
