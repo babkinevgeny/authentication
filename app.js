@@ -4,6 +4,7 @@ const FileStore = require('session-file-store')(session);
 const passport = require('passport');
 const MongoClient = require('mongodb').MongoClient;
 //const assert = require('assert');
+const path = require('path');
 const ObjectID = require('mongodb').ObjectID;
 const LocalStrategy = require('passport-local');
 
@@ -17,6 +18,10 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static('public'));
+app.use(express.static('files'));
+
+app.use('/static', express.static('public'));
 
 app.use(
   session({
@@ -65,10 +70,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' },
 ));
 
 
-//Get basic page
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+
 
 //Checking of authentication
 const auth = function (req, res, next) {
@@ -79,10 +81,15 @@ const auth = function (req, res, next) {
   }
 };
 
-//Get admin page
-app.get('/admin', auth, function (req, res) {
-  res.send('Admin page');
+//Get basic page
+app.get('/static/appointment', auth, function (req, res) {
+  res.sendFile(path.join(__dirname, '/public', 'appointment.html'));
 });
+
+//Get admin page
+// app.get('/admin', auth, function (req, res) {
+//   res.send('Admin page');
+// });
 
 //Login
 app.post('/login', function (req, res, next) {
@@ -97,13 +104,25 @@ app.post('/login', function (req, res, next) {
       if (err) {
         return next(err);
       }
-      return res.redirect('/admin');
+      return res.redirect('/static/appointment');
     });
   })(req, res, next);
 });
 
+
+const checkEmail = function (req, res, next) {
+  db.collection('users').findOne({email: req.body.email}, function(err, doc) {
+    if (err) {
+      return console.log(err);
+    }
+    if (doc) {
+      return res.send('This email has been already used!');
+    }
+    next();
+  });
+};
 //Create new user
-app.post('/users/new', function (req, res, next) {
+app.post('/users/new', checkEmail, function (req, res) {
   let user = {
     username: req.body.username,
     email: req.body.email,
