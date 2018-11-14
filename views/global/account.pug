@@ -1,0 +1,98 @@
+include ../includes/head
+body.account
+  include ../includes/navigation
+  main.main
+    h1.subtitle Fill our form to make an appointment
+    form.appointment(action='/appointment', method='post')
+      div.appointment__fieldsets
+        fieldset.barbers
+          p.text Choose your barber
+          label.btn.btn--checked(for='barberJohn')
+            | John
+            input#barberJohn(type='radio', value="John", name='barber', checked)
+          label.btn(for='barberBob')
+            | Bob
+            input#barberBob(type='radio', value="Bob", name='barber')
+          label.btn(for='barberMark')
+            | Mark
+            input#barberMark(type='radio', value="Mark", name='barber')
+          label.btn(for='barberHarry')
+            | Harry
+            input#barberHarry(type='radio', value="Harry", name='barber')
+        fieldset.services
+          p.text Choose services
+          label.btn.btn--checked(for='serviceHaircutting')
+            | Haircutting
+            input#serviceHaircutting(type='checkbox', value="haircutting", name='services', checked)
+          label.btn(for='serviceShaving')
+            | Shaving
+            input#serviceShaving(type='checkbox', value="shaving", name='services')
+          label.btn(for='serviceBeardDying')
+            | Beard dying
+            input#serviceBeardDying(type='checkbox', value="beard_dying", name='services')
+        fieldset.dates
+          p.text Choose date
+          div.row
+            label.btn.btn--checked(for='date1')
+              | 20.11
+              input#date1(type='radio', value="20.11", name='day', checked)
+            label.btn(for='date2')
+              | 21.11
+              input#date2(type='radio', value="21.11", name='day')
+          div.row
+            label.btn(for='date3')
+              | 22.11
+              input#date3(type='radio', value="22.11", name='day')
+            label.btn(for='date4')
+              | 23.11
+              input#date4(type='radio', value="23.11", name='day')
+          div.row
+            label.btn(for='date5')
+              | 24.11
+              input#date5(type='radio', value="24.11", name='day')
+            label.btn(for='date6')
+              | 25.11
+              input#date6(type='radio', value="25.11", name='day')
+          div.row
+            label.btn(for='date7')
+              | 26.11
+              input#date7(type='radio', value="26.11", name='day')
+        fieldset.times
+          p.text Choose time
+          div.row
+            label.btn.btn--checked(for='time1')
+              | 10:00
+              input#barberJohn(type='radio', value="10:00", name='time', checked)
+            label.btn(for='time2')
+              | 11:00
+              input#barberBob(type='radio', value="11:00", name='time')
+          div.row
+            label.btn(for='time3')
+              | 12:00
+              input#barberMark(type='radio', value="12:00", name='time')
+            label.btn(for='time4')
+              | 13:00
+              input#barberHarry(type='radio', value="13:00", name='time')
+          div.row
+            label.btn(for='time5')
+              | 14:00
+              input#barberBob(type='radio', value="14:00", name='time')
+            label.btn(for='time6')
+              | 15:00
+              input#barberMark(type='radio', value="15:00", name='time')
+          div.row
+            label.btn(for='time7')
+              | 16:00
+              input#barberHarry(type='radio', value="16:00", name='time')
+            label.btn(for='time8')
+              | 17:00
+              input#barberBob(type='radio', value="17:00", name='time')
+          div.row
+            label.btn(for='time9')
+              | 18:00
+              input#barberMark(type='radio', value="18:00", name='time')
+            label.btn(for='time10')
+              | 19:00
+              input#barberHarry(type='radio', value="19:00", name='time')
+      input.btn(type="submit", value="Make an appointment")
+  include ../includes/footer

@@ -1,0 +1,17 @@
+section.intro
+  .container
+    .intro__content
+      h1.title Barbershop
+      .subtitle Shave on you
+      .form-wrapper
+        h2.subtitle.form-toggle
+          | To make an appointment
+          br
+          span.form-toggle__btn.form-toggle__btn--active Sign in
+          |  or 
+          span.form-toggle__btn Sign up
+        form(action='/login', method='post')
+          input(type='text', name='username', placeholder='Your name')
+          input(type='email', name='email', placeholder='Your email', required='')
+          input(type='password', name='password', placeholder='Your password', required='')
+          input.btn(type='submit', value='Sign in')
