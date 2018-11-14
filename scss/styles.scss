@@ -136,6 +136,7 @@ body{
       display: inline-block;
       position: relative;
       margin-bottom: 10px;
+      padding-top: 0;
       &::before{
         content: '';
         display: block;

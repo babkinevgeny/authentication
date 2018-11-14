@@ -141,7 +141,8 @@ body {
     .intro__content .subtitle {
       display: inline-block;
       position: relative;
-      margin-bottom: 10px; }
+      margin-bottom: 10px;
+      padding-top: 0; }
       .intro__content .subtitle::before {
         content: '';
         display: block;
