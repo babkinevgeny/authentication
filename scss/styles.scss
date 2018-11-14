@@ -35,6 +35,7 @@ body{
       width: 100%;
       min-height: calc(100vh - 62px - 78px);
       background: $color-green;
+      padding-top: 20px;
     }
   }
 }
@@ -134,7 +135,7 @@ body{
     .subtitle{
       display: inline-block;
       position: relative;
-      margin-bottom: 60px;
+      margin-bottom: 10px;
       &::before{
         content: '';
         display: block;
@@ -261,7 +262,7 @@ body{
 .title{
   color: white;
   font-size: 96px;
-  margin: 20px 0;
+  margin: 0;
   font-weight: 400;
 }
 
@@ -348,6 +349,7 @@ body{
 
 section{
   .subtitle{
+    padding-top: 20px;
     margin: 0;
   }
   .text{
