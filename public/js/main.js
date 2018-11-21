@@ -27,6 +27,10 @@ window.onload = function() {
     elem.addEventListener('click', toggleCheckboxChecked);
   });
 
+  if(document.querySelector('title').text === 'Account manager') {
+    let x = fillDates(7);
+    console.log(x);
+  }
 };
 
 function toggleForm () {
@@ -88,5 +92,28 @@ function toggleCheckboxChecked() {
   } else {
     this.childNodes[1].checked = true;
     this.classList.add('btn--checked');
+  }
+};
+
+function fillDates(days) {
+  let fields = document.querySelectorAll('.dates label');
+  let date = new Date();
+  let currentValue;
+  for (let i = 0; i < days; i++) {
+    let input = document.createElement('input');
+    input.type = 'radio';
+    input.name = 'day';
+    if (i === 0) {
+      currentValue = `${date.getDate()}.${date.getMonth()+1}`;
+      input.setAttribute('checked', 'true');
+    } else {
+      let nextDate = new Date();
+      nextDate.setDate(date.getDate() + i);
+      currentValue = `${nextDate.getDate()}.${nextDate.getMonth()+1}`;
+    }
+    input.id = `date${i+1}`;
+    input.value = currentValue;
+    fields[i].textContent = currentValue;
+    fields[i].appendChild(input);
   }
 };
