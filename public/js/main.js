@@ -27,6 +27,10 @@ window.onload = function() {
     elem.addEventListener('click', toggleCheckboxChecked);
   });
 
+  if(document.querySelector('title').text === 'Account manager') {
+    let x = fillDates(7);
+    console.log(x);
+  }
 };
 
 function toggleForm () {
@@ -54,13 +58,20 @@ function toggleForm () {
 
   if (submitBtn.value === 'Sign in') {
     submitBtn.value = 'Sign up';
+    submitBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+      if (validation()) {
+        mainForm.submit();
+      }
+    });
   } else {
     submitBtn.value = 'Sign in';
+    submitBtn.removeEventListener('click');
   }
 
-  const nameField = document.querySelector('.form-wrapper input[name="username"]');
+  //const nameField = document.querySelector('.form-wrapper input[name="username"]');
 
-  nameField.required ? nameField.required = false: nameField.required = true;
+  //nameField.required ? nameField.required = false: nameField.required = true;
 }
 
 
@@ -89,4 +100,50 @@ function toggleCheckboxChecked() {
     this.childNodes[1].checked = true;
     this.classList.add('btn--checked');
   }
+};
+
+function fillDates(days) {
+  let fields = document.querySelectorAll('.dates label');
+  let date = new Date();
+  let currentValue;
+  for (let i = 0; i < days; i++) {
+    let input = document.createElement('input');
+    input.type = 'radio';
+    input.name = 'day';
+    if (i === 0) {
+      currentValue = `${date.getDate()}.${date.getMonth()+1}`;
+      input.setAttribute('checked', 'true');
+    } else {
+      let nextDate = new Date();
+      nextDate.setDate(date.getDate() + i);
+      currentValue = `${nextDate.getDate()}.${nextDate.getMonth()+1}`;
+    }
+    input.id = `date${i+1}`;
+    input.value = currentValue;
+    fields[i].textContent = currentValue;
+    fields[i].appendChild(input);
+  }
+};
+
+function validation () {
+  let username = document.querySelector('input[name="username"]');
+  let email = document.querySelector('input[name="email"]');
+  let password = document.querySelector('input[name="password"]');
+
+  if (!username.value || !email.value || !password.value) {
+    alert('All fields are required!');
+    return false;
+  }
+
+  const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  if ( !(emailRegexp.test(email.value)) ) {
+    alert('Type email in right format');
+    return false;
+  }
+
+  if (password.value.length < 8) {
+    alert ('Password should contain at least 8 characters');
+    return false;
+  }
+  return true;
 };
