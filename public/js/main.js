@@ -28,9 +28,21 @@ window.onload = function() {
   });
 
   if(document.querySelector('title').text === 'Account manager') {
-    let x = fillDates(7);
-    console.log(x);
+    fillDates(7);
   }
+
+  const submitForm = document.querySelector('.intro form input[type="submit"]');
+  submitForm.addEventListener('click', function(event) {
+    event.preventDefault();
+    let form = document.querySelector('.form-wrapper form');
+    if (form.classList.contains('show-name')) {
+      if (validation()) {
+        form.submit();
+      }
+    } else {
+      form.submit();
+    }
+  });
 };
 
 function toggleForm () {
@@ -58,20 +70,9 @@ function toggleForm () {
 
   if (submitBtn.value === 'Sign in') {
     submitBtn.value = 'Sign up';
-    submitBtn.addEventListener('click', function(event) {
-      event.preventDefault();
-      if (validation()) {
-        mainForm.submit();
-      }
-    });
   } else {
     submitBtn.value = 'Sign in';
-    submitBtn.removeEventListener('click');
   }
-
-  //const nameField = document.querySelector('.form-wrapper input[name="username"]');
-
-  //nameField.required ? nameField.required = false: nameField.required = true;
 }
 
 
