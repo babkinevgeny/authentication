@@ -58,13 +58,20 @@ function toggleForm () {
 
   if (submitBtn.value === 'Sign in') {
     submitBtn.value = 'Sign up';
+    submitBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+      if (validation()) {
+        mainForm.submit();
+      }
+    });
   } else {
     submitBtn.value = 'Sign in';
+    submitBtn.removeEventListener('click');
   }
 
-  const nameField = document.querySelector('.form-wrapper input[name="username"]');
+  //const nameField = document.querySelector('.form-wrapper input[name="username"]');
 
-  nameField.required ? nameField.required = false: nameField.required = true;
+  //nameField.required ? nameField.required = false: nameField.required = true;
 }
 
 
@@ -116,4 +123,27 @@ function fillDates(days) {
     fields[i].textContent = currentValue;
     fields[i].appendChild(input);
   }
+};
+
+function validation () {
+  let username = document.querySelector('input[name="username"]');
+  let email = document.querySelector('input[name="email"]');
+  let password = document.querySelector('input[name="password"]');
+
+  if (!username.value || !email.value || !password.value) {
+    alert('All fields are required!');
+    return false;
+  }
+
+  const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  if ( !(emailRegexp.test(email.value)) ) {
+    alert('Type email in right format');
+    return false;
+  }
+
+  if (password.value.length < 8) {
+    alert ('Password should contain at least 8 characters');
+    return false;
+  }
+  return true;
 };
